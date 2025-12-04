@@ -1,36 +1,40 @@
-# Julian & Gregory - The Calendar assistants
+# Julian Gregory - The Calendar assistant
 
 ## What does it do?
 
-The Calendar assistants can help:
+The Calendar assistant can help:
 
 1. Summarize the days meetings
 2. Summarize the weeks meetings
-3. Reschedule a meeting
-4. Book trainings into your calendar
+3. Cancel all your meetings with an apologies to participants (for when you have an emergency)
+4. Book trainings into your calendar (perhaps after reading your email)
 5. Adjust the trainings on your calendar (e.g. move everything by a week)
-6. Automatically cancel meetings if you're on emergencies
+6. and more(!)
 
 ## How does it do it?
 
-We cannot rely on Gemini Enterprise Assistant capability we instead of have to create a custom agent that oAuths into the Google Calendar and GMail Apis. Will have to figure out the oAuth works for Gemini Enterprise.
-
-## Tech Stack
-
-Adk-Python
+We cannot rely on Gemini Enterprise Assistant capability we instead of have to create a custom agent that oAuths into the Google Calendar and GMail Apis. Will have to figure out the oAuth works for Gemini Enterprise, which will be doubly fun ;)
 
 ## Why the name?
 
-There is a batman villian called Calendar Man, whose real-life name is Julian Gregory Day, named after the Julian and Gregorian calendars. I'm a big batman fan. ;)
+There is a batman villian called [Calendar Man](https://en.wikipedia.org/wiki/Calendar_Man), whose real name is Julian Gregory Day, named after the Julian and Gregorian calendars. I like to name my projects after quirky things!
+
+## What I have so far ...
+
+I've finally figured out how to OAuth with a custom agent in ADK and Gemini Enterprise.
+
+The example in [`multi_tool_agent/agent.py`](multi_tool_agent/agent.py) can extract the right token from `tool_context.state['calendarauth']` and use to create and event in the user's Google Calendar.
+
+If you're inside Google, the doc with more info is [here](https://docs.google.com/document/d/1unBzB5Wuqry_WRABrcSnE2R38pBvHogiv_pvqj2rVkY/edit?tab=t.0)
 
 
-## Creation
+## Next steps
 
-## Steps
+We'll actually have to build the agents with the right prompts for the feature set above. 
 
-1. Create a simple custom agent and publish to Gemini Enterprise
-2. Check if we can call the Google calendar/mail APIs with just the oAuth token 
-3. Check how to pass the oAuth token from Gemini Enterprise to the custom agent (in theory we don't require oAuth, as the user is already logged on with the right identity)
-4. Build it out!
+## References
+
+Google Calendar API - [Link](https://developers.google.com/workspace/calendar/api/guides/overview)
+Google Mail API - [Link](https://developers.google.com/workspace/gmail/api/guides)
 
 
