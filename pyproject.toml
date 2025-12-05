@@ -1,7 +1,7 @@
 [project]
-name = "test-adk"
+name = "julian-gregory"
 version = "0.1.0"
-description = "Add your description here"
+description = "The Calendar Assistant"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -9,4 +9,11 @@ dependencies = [
     "google-api-python-client>=2.187.0",
     "google-auth-httplib2>=0.2.1",
     "google-auth-oauthlib>=1.2.3",
+    "pytest>=9.0.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = "."
+filterwarnings = [
+    "ignore::DeprecationWarning:google.adk.runners"
 ]

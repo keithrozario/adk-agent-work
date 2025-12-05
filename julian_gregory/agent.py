@@ -15,9 +15,9 @@ def get_service(tool_context: ToolContext):
     Returns the Google Calendar and GMail service for API interaction
     """
     try:
-        oauth_token = tool_context.state['calendarauth']
+        oauth_token = tool_context.state['julian-gregory-authorizer'] # make sure this is the same as in deploy_to_ge.py 
         creds = Credentials(token=oauth_token)
-    except:  ## if the calendar auth doesn't exists, then we're on a local machine testing
+    except KeyError:  ## if the calendar auth doesn't exists, then we're on a local machine testing
         creds = get_creds()
     
     calendar_service = build("calendar", "v3", credentials=creds)
@@ -106,7 +106,7 @@ def get_current_time(city: str) -> dict:
 
 
 root_agent = Agent(
-    name="weather_time_agent",
+    name="julian_gregory_day",
     model="gemini-2.0-flash",
     description=("Agent to answer questions about the time and weather in a city."),
     instruction=(
@@ -116,4 +116,4 @@ root_agent = Agent(
 )
 
 
-app = App(root_agent=root_agent, name="multi_tool_agent")
+app = App(root_agent=root_agent, name="julian_gregory")

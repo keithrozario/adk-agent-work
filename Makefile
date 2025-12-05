@@ -18,7 +18,7 @@ playground:
 	@echo "|                                                                             |"
 	@echo "| 💡 Try asking: What's the weather in San Francisco?                         |"
 	@echo "|                                                                             |"
-	@echo "| 🔍 IMPORTANT: Select the 'multi_tool_agent' folder to interact with your agent.          |"
+	@echo "| 🔍 IMPORTANT: Select the 'julian_gregory' folder to interact with your agent.          |"
 	@echo "==============================================================================="
 	uv run adk web . --port 8501 --reload_agents
 
@@ -29,13 +29,13 @@ playground:
 # Deploy the agent remotely
 deploy:
 	# Export dependencies to requirements file using uv export.
-	(uv export --no-hashes --no-header --no-dev --no-emit-project --no-annotate > multi_tool_agent/app_utils/.requirements.txt 2>/dev/null || \
-	uv export --no-hashes --no-header --no-dev --no-emit-project > multi_tool_agent/app_utils/.requirements.txt) && \
-	uv run -m multi_tool_agent.app_utils.deploy \
-		--source-packages=./multi_tool_agent \
-		--entrypoint-module=multi_tool_agent.agent_engine_app \
+	(uv export --no-hashes --no-header --no-dev --no-emit-project --no-annotate > julian_gregory/app_utils/.requirements.txt 2>/dev/null || \
+	uv export --no-hashes --no-header --no-dev --no-emit-project > julian_gregory/app_utils/.requirements.txt) && \
+	uv run -m julian_gregory.app_utils.deploy \
+		--source-packages=./julian_gregory \
+		--entrypoint-module=julian_gregory.agent_engine_app \
 		--entrypoint-object=agent_engine \
-		--requirements-file=multi_tool_agent/app_utils/.requirements.txt
+		--requirements-file=julian_gregory/app_utils/.requirements.txt
 
 # Alias for 'make deploy' for backward compatibility
 backend: deploy

@@ -1586,7 +1586,7 @@ import asyncio
 
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
-from multi_tool_agent.agent import root_agent
+from julian_gregory.agent import root_agent
 from google.genai import types as genai_types
 
 
@@ -1594,10 +1594,10 @@ async def main():
     """Runs the agent with a sample query."""
     session_service = InMemorySessionService()
     await session_service.create_session(
-        app_name="multi_tool_agent", user_id="test_user", session_id="test_session"
+        app_name="julian_gregory", user_id="test_user", session_id="test_session"
     )
     runner = Runner(
-        agent=root_agent, app_name="multi_tool_agent", session_service=session_service
+        agent=root_agent, app_name="julian_gregory", session_service=session_service
     )
     query = "I want a recipe for pancakes"
     async for event in runner.run_async(

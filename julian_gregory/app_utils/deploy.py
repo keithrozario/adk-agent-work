@@ -149,23 +149,23 @@ def print_deployment_success(
 )
 @click.option(
     "--display-name",
-    default="test-adk",
+    default="julian-gregory",
     help="Display name for the agent engine",
 )
 @click.option(
     "--description",
-    default="Add your description here",
+    default="The Calendar Assistant",
     help="Description of the agent",
 )
 @click.option(
     "--source-packages",
     multiple=True,
-    default=["./multi_tool_agent"],
+    default=["./julian_gregory"],
     help="Source packages to deploy. Can be specified multiple times (e.g., --source-packages=./app --source-packages=./lib)",
 )
 @click.option(
     "--entrypoint-module",
-    default="multi_tool_agent.agent_engine_app",
+    default="julian_gregory.agent_engine_app",
     help="Python module path for the agent entrypoint (required)",
 )
 @click.option(
@@ -175,13 +175,13 @@ def print_deployment_success(
 )
 @click.option(
     "--requirements-file",
-    default="multi_tool_agent/app_utils/.requirements.txt",
+    default="julian_gregory/app_utils/.requirements.txt",
     help="Path to requirements.txt file",
 )
 @click.option(
     "--env-file",
     default=None,
-    help="Path to .env file for environment variables (defaults to multi_tool_agent/.env)",
+    help="Path to .env file for environment variables (defaults to julian_gregory/.env)",
 )
 @click.option(
     "--set-env-vars",

@@ -10,5 +10,5 @@ wheels/
 .venv
 
 # JSON Credentials
-credentials.json
+credentials*.json
 token.json
