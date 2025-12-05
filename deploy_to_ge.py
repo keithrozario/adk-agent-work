@@ -1,6 +1,10 @@
+"""
+This script deploys an agent_engine agent into Gemini Enterprise, with a configured authorizer and the scopes.
+Currently the script only handles Google Workspace authorizations
+"""
+
 import json
 import requests
-import time
 import google.auth
 import google_auth_oauthlib.flow
 from google.auth.transport.requests import Request
@@ -9,6 +13,10 @@ auth_id = "julian-gregory-authorizer"
 gemini_app_id = "agentspace-1759116549124_1759116549124"
 credentials_file ="credentials_web.json"
 deployment_metadata_file = "deployment_metadata.json"
+scopes=[
+    "https://www.googleapis.com/auth/calendar",
+    "https://www.googleapis.com/auth/gmail.readonly"
+]
 
 
 with open(deployment_metadata_file, 'r') as f:
@@ -25,11 +33,8 @@ auth_name = f"projects/{project_id}/locations/global/authorizations/{auth_id}"
 authorizer_gcp_url = f"https://discoveryengine.googleapis.com/v1alpha/projects/{project_id}/locations/global/authorizations/{auth_id}"
 
 flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
-    "credentials.json",
-    scopes=[
-        "https://www.googleapis.com/auth/calendar",
-        "https://www.googleapis.com/auth/gmail.readonly"
-    ],
+    credentials_file,
+    scopes=scopes
 )
 authorization_url, state = flow.authorization_url(
     access_type="offline",
@@ -79,7 +84,6 @@ else:
 
 
 agent_registration_endpoint = f"https://discoveryengine.googleapis.com/v1alpha/projects/{project_id}/locations/global/collections/default_collection/engines/{gemini_app_id}/assistants/default_assistant/agents"
-
 data = {
     "displayName": "Julian Gregory",
     "description": "The Calendar Assistant",
