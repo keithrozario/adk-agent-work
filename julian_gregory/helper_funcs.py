@@ -1,15 +1,19 @@
 import os.path
 
+from google.adk.tools.tool_context import ToolContext
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
 
 def get_creds():
     """
     Gets the Google API credentials
     This function is only executed when running locally. It should never be needed when running on Agent Engine
+    There's a difference between Google CLoud auth tokens and GWS auth tokens, they're not interchangeable :(
     """
-    
+
     # SCOPES are set in the Authorizer of Gemini Enterprise, it's baked into the Auth URI setting.
     # For local execution we create it here.
     SCOPES = [
@@ -35,3 +39,20 @@ def get_creds():
         raise Exception("Unable to get Google Credentials")
 
     return creds
+
+
+def get_service(tool_context: ToolContext):
+    """
+    Returns the Google Calendar and GMail service for API interaction
+    """
+    try:
+        oauth_token = tool_context.state['julian-gregory-authorizer'] # make sure this is the same as in deploy_to_ge.py 
+        creds = Credentials(token=oauth_token)
+    except KeyError:  ## if the calendar auth doesn't exists, then we're on a local machine testing
+        creds = get_creds()
+    
+    calendar_service = build("calendar", "v3", credentials=creds)
+    gmail_service = build("gmail", "v1", credentials=creds)
+
+    return calendar_service, gmail_service
+
